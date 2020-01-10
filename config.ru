@@ -1,3 +1,3 @@
-require './app/web'
+require './config/boot'
 
 run Web

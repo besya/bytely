@@ -1,12 +1,11 @@
-require 'sinatra/base'
-require 'sinatra/reloader'
-
-class Web < Sinatra::Application
+class Web < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
 
-  set :public_folder, File.dirname(__FILE__) + '/../public'
+  set root: File.dirname(__FILE__) + '/..'
+  set environment: (ENV['APP_ENV'] || :development).to_sym
+  set public_folder: root + '/public'
 
   get '/' do
     'Bytely'

@@ -1,0 +1,8 @@
+development:
+  adapter: sqlite3
+  database: bytely_development
+
+test:
+  adapter: sqlite3
+  database: bytely_test
+
