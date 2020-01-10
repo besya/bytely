@@ -23,6 +23,10 @@ GEM
     multi_json (1.14.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.2)
+    pg (1.2.2)
+    puma (4.3.1)
+      nio4r (~> 2.0)
     rack (2.0.8)
     rack-protection (2.0.7)
       rack
@@ -72,6 +76,8 @@ PLATFORMS
 
 DEPENDENCIES
   factory_bot
+  pg
+  puma
   rack-test (~> 1.1.0)
   rake (= 13.0.1)
   rspec (= 3.9)

@@ -8,6 +8,6 @@ class Web < Sinatra::Base
   set public_folder: root + '/public'
 
   get '/' do
-    'Bytely'
+    Link.all.to_json
   end
 end
