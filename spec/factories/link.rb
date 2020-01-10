@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :link do
     url { 'http://github.com' }
-    token { 'XxXxXxX' }
+    token { 'TOKEN' }
   end
 end
