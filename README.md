@@ -1,3 +1,8 @@
+### Deployment
+Automatic deploys to Heroku from `master` are enabled
+
+Link to the app on Heroku: [https://bytelyapp.herokuapp.com](https://bytelyapp.herokuapp.com)
+
 ### Development
 
 #### Console
