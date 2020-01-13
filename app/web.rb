@@ -16,6 +16,10 @@ class Web < Sinatra::Base
     LinkCreator.call(TokenGenerator, params[:url]).to_json
   end
 
+  get '/popular' do
+    Link.order(redirects: :desc).limit(10).to_json
+  end
+
   get '/:token' do
     link = Link.find_by token: params[:token]
 

@@ -38,6 +38,19 @@ RSpec.describe 'Web application' do
     end
   end
 
+  describe '/popular' do
+    before(:example) { create(:link) }
+
+    it 'should return array of links' do
+      get '/popular'
+
+      link = JSON.parse last_response.body, symbolize_names: true
+
+      expect(link).to be_a_kind_of(Array)
+      expect(link.first).to include(:url, :token, :redirects)
+    end
+  end
+
   describe '/:token' do
     before(:example) { create(:link) }
 
