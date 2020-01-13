@@ -19,6 +19,11 @@ class Web < Sinatra::Base
   get '/:token' do
     link = Link.find_by token: params[:token]
 
-    redirect to(link&.url || '/')
+    if link
+      link.increment! :redirects
+      redirect to(link.url)
+    else
+      redirect to('/')
+    end
   end
 end

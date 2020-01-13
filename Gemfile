@@ -9,7 +9,7 @@ gem 'sinatra', '2.0.7'
 gem 'sinatra-activerecord', '2.0.14'
 gem 'sinatra-contrib', '2.0.7'
 
-group :production do
+group :production, :development do
   gem 'pg'
 end
 
