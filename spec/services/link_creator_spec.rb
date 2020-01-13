@@ -4,7 +4,7 @@ RSpec.describe LinkCreator do
   let(:invalid_url) { 'invalid_url' }
 
   it 'should create and return Link with unique token if url is valid' do
-    link = LinkCreator.call(token_generator, valid_url)
+    link = described_class.call(valid_url, token_generator)
 
     expect(link.token).not_to be_empty
     expect(link).to be_valid
@@ -12,7 +12,7 @@ RSpec.describe LinkCreator do
   end
 
   it 'should not create Link if url is invalid' do
-    link = LinkCreator.call(token_generator, invalid_url)
+    link = described_class.call(invalid_url, token_generator)
 
     expect(link.token).to be_nil
     expect(link).not_to be_valid
@@ -20,8 +20,8 @@ RSpec.describe LinkCreator do
   end
 
   it 'should return Link from database if url has already been taken' do
-    expected_link = LinkCreator.call(token_generator, valid_url)
-    new_link = LinkCreator.call(token_generator, valid_url)
+    expected_link = described_class.call(valid_url, token_generator)
+    new_link = described_class.call(valid_url, token_generator)
 
     expect(new_link.id).to eq(expected_link.id)
     expect(new_link.token).to eq(expected_link.token)
@@ -33,10 +33,10 @@ RSpec.describe LinkCreator do
     allow(double_generator).to receive(:call).and_return('TOKEN', 'TOKEN', 'EXPECTED')
 
     # Take the first token 'TOKEN'
-    LinkCreator.call(double_generator, valid_url)
+    described_class.call(valid_url, double_generator)
 
     # Take the second token 'TOKEN', check if exists and take 'EXPECTED' token
-    link = LinkCreator.call(double_generator, 'http://another.valid.url')
+    link = described_class.call('http://another.valid.url', double_generator)
 
     expect(link.token).to eq('EXPECTED')
   end

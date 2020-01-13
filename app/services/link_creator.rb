@@ -1,9 +1,9 @@
 class LinkCreator < Service
   TOKEN_LENGTH = 8
 
-  def initialize(token_generator, url)
-    @token_generator = token_generator
+  def initialize(url, token_generator)
     @url = url
+    @token_generator = token_generator
   end
 
   def call

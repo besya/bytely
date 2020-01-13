@@ -1,4 +1,5 @@
 class Web < Sinatra::Base
+  # Configuration
   configure :development do
     register Sinatra::Reloader
   end
@@ -7,13 +8,16 @@ class Web < Sinatra::Base
     use Rack::Static, index: 'public/index.html'
   end
 
+  # Application constants
   set root: File.dirname(__FILE__) + '/..'
   set environment: (ENV['APP_ENV'] || :development).to_sym
   set public_folder: root + '/public'
 
+  # Public endpoints
+
   post '/shorten' do
     content_type :json
-    LinkCreator.call(TokenGenerator, params[:url]).to_json
+    LinkCreator.call(params[:url], TokenGenerator).to_json
   end
 
   get '/popular' do
@@ -24,7 +28,7 @@ class Web < Sinatra::Base
     link = Link.find_by token: params[:token]
 
     if link
-      link.increment! :redirects
+      RedirectRegister.call(request.ip, link, CountryIdentifier)
       redirect to(link.url)
     else
       redirect to('/')
