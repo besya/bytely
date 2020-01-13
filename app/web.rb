@@ -15,4 +15,10 @@ class Web < Sinatra::Base
     content_type :json
     LinkCreator.call(TokenGenerator, params[:url]).to_json
   end
+
+  get '/:token' do
+    link = Link.find_by token: params[:token]
+
+    redirect to(link&.url || '/')
+  end
 end
