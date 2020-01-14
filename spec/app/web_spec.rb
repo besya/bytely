@@ -1,6 +1,6 @@
 RSpec.describe 'Web application' do
   it 'should allow accessing to static files' do
-    get '/static.txt'
+    get '/robots.txt'
 
     expect(last_response).to be_ok
   end
@@ -13,8 +13,8 @@ RSpec.describe 'Web application' do
     end
   end
 
-  describe '/shorten' do
-    let(:endpoint) { '/shorten' }
+  describe '/api/shorten' do
+    let(:endpoint) { '/api/shorten' }
     let(:valid_url) { 'http://valid.url' }
     let(:invalid_url) { 'invalid_url' }
 
@@ -38,11 +38,11 @@ RSpec.describe 'Web application' do
     end
   end
 
-  describe '/popular' do
+  describe '/api/popular' do
     before(:example) { create(:link) }
 
     it 'should return array of links' do
-      get '/popular'
+      get '/api/popular'
 
       links = JSON.parse last_response.body, symbolize_names: true
 
@@ -51,11 +51,11 @@ RSpec.describe 'Web application' do
     end
   end
 
-  describe '/countries' do
+  describe '/api/countries' do
     before(:example) { create(:country) }
 
     it 'should return array of countries' do
-      get '/countries'
+      get '/api/countries'
 
       countries = JSON.parse last_response.body, symbolize_names: true
 

@@ -15,7 +15,9 @@ Run workers ```bundle exec resque-pool```
 Run scheduler ```bundle exec rake environment resque:scheduler```
 
 #### Web App
-Run ```bundle exec puma -C config/puma.rb```
+Run in separate windows
+```bundle exec puma -C config/puma.rb```
+```bundle exec rake ui:start```
 
 Web App will be Available at `http://localhost:3000/` by default
 
@@ -56,3 +58,12 @@ Useful console like Rails Console
 ### UI
 This command compiles the ui application to ./public folder
 ```rake ui:build```
+
+Start UI in dev mode with hot reloading
+```rake ui:start```
+
+Add a new package using yarn
+```rake ui:add package-name```
+
+Run yarn install
+```rake ui:install```

@@ -11,6 +11,7 @@ gem 'resque-retry'
 gem 'sinatra', '2.0.7'
 gem 'sinatra-activerecord', '2.0.14'
 gem 'sinatra-contrib', '2.0.7'
+gem "sinatra-cross_origin", "~> 0.3.1"
 
 group :production, :development do
   gem 'pg'

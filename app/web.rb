@@ -6,6 +6,8 @@ class Web < Sinatra::Base
 
   configure do
     use Rack::Static, index: 'public/index.html'
+    register Sinatra::CrossOrigin
+    enable :cross_origin
   end
 
   # Application constants
@@ -15,16 +17,16 @@ class Web < Sinatra::Base
 
   # Public endpoints
 
-  post '/shorten' do
+  post '/api/shorten' do
     content_type :json
     LinkCreator.call(params[:url], TokenGenerator).to_json
   end
 
-  get '/popular' do
+  get '/api/popular' do
     Link.order(redirects_count: :desc).limit(10).to_json
   end
 
-  get '/countries' do
+  get '/api/countries' do
     Country.order(redirects_count: :desc).to_json
   end
 

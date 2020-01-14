@@ -11,6 +11,18 @@ namespace :ui do
   task :build do
     exec 'cd ui && yarn build'
   end
+
+  task :start do
+    exec 'cd ui && yarn start'
+  end
+
+  task :add do
+    exec "cd ui && yarn add #{ARGV[1]}"
+  end
+
+  task :install do
+    exec 'cd ui && yarn install'
+  end
 end
 
 task :console do
