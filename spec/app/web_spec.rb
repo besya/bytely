@@ -33,7 +33,7 @@ RSpec.describe 'Web application' do
 
       link = JSON.parse last_response.body, symbolize_names: true
 
-      expect(link).to include(:url, :token, :redirects_count)
+      expect(link).to include(:url, :token, :redirects_count, :unique_redirects_count)
       expect(link[:url]).to eq(valid_params[:url])
     end
   end
@@ -44,10 +44,23 @@ RSpec.describe 'Web application' do
     it 'should return array of links' do
       get '/popular'
 
-      link = JSON.parse last_response.body, symbolize_names: true
+      links = JSON.parse last_response.body, symbolize_names: true
 
-      expect(link).to be_a_kind_of(Array)
-      expect(link.first).to include(:url, :token, :redirects_count)
+      expect(links).to be_a_kind_of(Array)
+      expect(links.first).to include(:url, :token, :redirects_count, :unique_redirects_count)
+    end
+  end
+
+  describe '/countries' do
+    before(:example) { create(:country) }
+
+    it 'should return array of countries' do
+      get '/countries'
+
+      countries = JSON.parse last_response.body, symbolize_names: true
+
+      expect(countries).to be_a_kind_of(Array)
+      expect(countries.first).to include(:name, :redirects_count, :unique_redirects_count)
     end
   end
 

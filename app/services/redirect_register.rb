@@ -6,15 +6,24 @@ class RedirectRegister < Service
   end
 
   def call
-    ActiveRecord::Base.transaction do
-      @link.redirects.create ip: @ip, country: country
+    Redirect.transaction do
+      @link.redirects.create(attributes)
     end
   end
 
   private
 
+  def attributes
+    { ip: @ip, country: country, unique_redirect: unique_redirect }
+  end
+
+  def unique_redirect
+    attributes = { link: @link, ip: @ip, country: country }
+    @unique_redirect ||= UniqueRedirect.find_or_create_by(attributes)
+  end
+
   def country
-    Country.find_or_create_by(name: country_name)
+    @country ||= Country.find_or_create_by(name: country_name)
   end
 
   def country_name

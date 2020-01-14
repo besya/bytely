@@ -21,14 +21,18 @@ class Web < Sinatra::Base
   end
 
   get '/popular' do
-    Link.order(redirects: :desc).limit(10).to_json
+    Link.order(redirects_count: :desc).limit(10).to_json
+  end
+
+  get '/countries' do
+    Country.order(redirects_count: :desc).to_json
   end
 
   get '/:token' do
     link = Link.find_by token: params[:token]
 
     if link
-      RedirectRegister.call(request.ip, link, CountryIdentifier)
+      Resque.enqueue RedirectRegisterJob, request.ip, link.id
       redirect to(link.url)
     else
       redirect to('/')

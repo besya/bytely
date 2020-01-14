@@ -4,6 +4,6 @@ class CountryIdentifier < Service
   end
 
   def call
-    GEO.get(@ip)&.dig('country', 'names', 'en') || 'Unknown'
+    $geo.get(@ip)&.dig('country', 'names', 'en') || 'Unknown'
   end
 end

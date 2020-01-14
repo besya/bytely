@@ -22,6 +22,16 @@ RSpec.describe RedirectRegister do
     expect(link.redirects_count).to eq link.redirects.last.country.redirects_count
   end
 
+  it 'should increment unique_redirect counters' do
+    link = create(:link)
+
+    register = -> { described_class.call(ip_usa, link, country_identifier) }
+
+    expect { register.call }.to change { link.unique_redirects_count }.by(1)
+    expect(link.unique_redirects_count).to eq link.unique_redirects.count
+    expect(link.unique_redirects_count).to eq link.redirects.last.country.unique_redirects_count
+  end
+
   it 'should create Country if does not exist' do
     link = create(:link)
 
@@ -45,8 +55,11 @@ RSpec.describe RedirectRegister do
     described_class.call(ip_usa, link, ip2country)
 
     redirect = link.redirects.last
+    unique_redirect = redirect.unique_redirect
 
     expect(redirect.ip).to eq ip_usa
+    expect(unique_redirect.ip).to eq ip_usa
     expect(redirect.country.name).to eq country_name
+    expect(unique_redirect.country.name).to eq country_name
   end
 end

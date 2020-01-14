@@ -5,6 +5,9 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'maxmind/db'
+require 'resque/server'
+require 'resque'
+require 'resque-retry'
 
 ENV['APP_ENV'] ||= ENV['RACK_ENV'] || 'development'
 
@@ -13,6 +16,8 @@ APP_DIR = File.join(ROOT_DIR, 'app')
 
 Dir[File.join(APP_DIR, '**/*.rb')].sort.each { |file| require file }
 
-GEO = Geo.new(File.join(ROOT_DIR, 'db/geoip_countries.mmdb'))
+require_relative 'initializers/redis'
+require_relative 'initializers/resque'
+require_relative 'initializers/geo'
 
 require_relative '../app/web'

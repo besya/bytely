@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_114235) do
+ActiveRecord::Schema.define(version: 2020_01_13_163658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_114235) do
   create_table "countries", force: :cascade do |t|
     t.string "name", default: "Unknown", null: false
     t.integer "redirects_count", default: 0
+    t.integer "unique_redirects_count", default: 0, null: false
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_114235) do
     t.string "url", null: false
     t.string "token", null: false
     t.integer "redirects_count", default: 0, null: false
+    t.integer "unique_redirects_count", default: 0, null: false
     t.index ["token"], name: "index_links_on_token", unique: true
     t.index ["url"], name: "index_links_on_url", unique: true
   end
@@ -33,8 +35,19 @@ ActiveRecord::Schema.define(version: 2020_01_13_114235) do
     t.bigint "link_id"
     t.bigint "country_id"
     t.string "ip", default: "0.0.0.0", null: false
+    t.integer "unique_redirect_id", null: false
     t.index ["country_id"], name: "index_redirects_on_country_id"
     t.index ["link_id"], name: "index_redirects_on_link_id"
+  end
+
+  create_table "unique_redirects", force: :cascade do |t|
+    t.bigint "link_id"
+    t.bigint "country_id"
+    t.string "ip", default: "0.0.0.0", null: false
+    t.integer "redirects_count", default: 0, null: false
+    t.index ["country_id"], name: "index_unique_redirects_on_country_id"
+    t.index ["ip", "link_id"], name: "index_unique_redirects_on_ip_and_link_id", unique: true
+    t.index ["link_id"], name: "index_unique_redirects_on_link_id"
   end
 
 end

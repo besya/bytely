@@ -1,4 +1,5 @@
 class Link < ActiveRecord::Base
+  has_many :unique_redirects
   has_many :redirects
 
   validates :url, :token, presence: true, uniqueness: true
