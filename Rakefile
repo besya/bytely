@@ -7,6 +7,12 @@ task :environment do
   require './config/boot'
 end
 
+namespace :ui do
+  task :build do
+    exec 'cd ui && yarn build'
+  end
+end
+
 task :console do
   require 'irb'
   require './config/boot'

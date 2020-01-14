@@ -51,3 +51,8 @@ Useful console like Rails Console
 
 ##### Run tests
 ```rspec```
+
+
+### UI
+This command compiles the ui application to ./public folder
+```rake ui:build```
