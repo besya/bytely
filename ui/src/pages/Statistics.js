@@ -1,6 +1,7 @@
 import React from "react";
 import Popular from "../components/Popular";
 import Countries from "../components/Countries";
+import GeneralStatistics from "../components/GeneralStatistics";
 import Container from "react-bootstrap/Container";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Axios from "axios";
@@ -8,7 +9,7 @@ import Axios from "axios";
 class Statistics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { countries: [], links: [], total_redirects: 0, unique_redirects: 0 };
+    this.state = { countries: [], links: [], totalRedirects: 0, uniqueRedirects: 0 };
   }
 
   getCountries = () => {
@@ -26,8 +27,8 @@ class Statistics extends React.Component {
   updateCountriesState(data) {
     this.setState({
       countries: data.items,
-      total_redirects: data.total_redirects,
-      unique_redirects: data.unique_redirects
+      totalRedirects: data.total_redirects,
+      uniqueRedirects: data.unique_redirects
     });
   }
 
@@ -47,6 +48,11 @@ class Statistics extends React.Component {
         </Container>
         <Container className="p-0">
           <h1>Statistics</h1>
+
+          <GeneralStatistics totalRedirects={this.state.totalRedirects}
+                             uniqueRedirects={this.state.uniqueRedirects}
+          />
+
           <div className="mt-4">
             <h2>Most popular links</h2>
             <Popular links={this.state.links}/>
@@ -54,8 +60,8 @@ class Statistics extends React.Component {
           <div className="mt-4">
             <h2>By Countries</h2>
             <Countries countries={this.state.countries}
-                       totalRedirects={this.state.total_redirects}
-                       uniqueRedirects={this.state.unique_redirects}
+                       totalRedirects={this.state.totalRedirects}
+                       uniqueRedirects={this.state.uniqueRedirects}
             />
           </div>
         </Container>

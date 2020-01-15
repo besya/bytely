@@ -35,8 +35,8 @@ class Home extends React.Component {
   render() {
     return(
       <div>
-        <Container>
-          <Jumbotron className="bg-white pl-0">
+        <Container style={{ background: 'url(background.jpeg) top', backgroundSize: 'cover' }}>
+          <Jumbotron className="bg-transparent pl-0 mb-0">
             <h1>Create Click-Worthy Links</h1>
             <p>
               Build and protect your brand using powerful, recognizable short links.

@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 export default function () {
   return(
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="/">Navbar</Navbar.Brand>
+      <Navbar.Brand href="/">Bytely</Navbar.Brand>
       <Nav className="mr-auto">
         <NavLink to="/" exact className="nav-link" activeClassName="active">Home</NavLink>
         <NavLink to="/statistics" className="nav-link" activeClassName="active">Statistics</NavLink>
