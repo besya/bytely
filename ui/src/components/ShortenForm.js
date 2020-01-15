@@ -11,8 +11,17 @@ class ShortenForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    let url = this.state.url;
+
+    if(!url.includes('://')){
+      url = 'http://' + url;
+    }
+
+    this.setState({url: url});
+
     this.props
-      .shortenUrl(this.state.url)
+      .shortenUrl(url)
       .then(this.setForCopy)
       .catch(this.handleErrors);
   };
@@ -23,7 +32,9 @@ class ShortenForm extends React.Component {
 
   handleChange = event => {
     event.preventDefault();
-    this.setState({url: event.target.value, error: '', showCopy: false});
+
+    const url = event.target.value;
+    this.setState({url: url, error: '', showCopy: false});
   };
 
   handleCopy = event => {

@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import ShortenForm from "../components/ShortenForm";
 import LastShorts from "../components/LastShorts";
 import Axios from "axios";
+import Jumbotron from "react-bootstrap/Jumbotron";
 
 class Home extends React.Component {
   constructor(props) {
@@ -33,15 +34,22 @@ class Home extends React.Component {
 
   render() {
     return(
-      <Container>
-        <br/>
-        <h1>Home</h1>
-        <br/>
-
-        <ShortenForm shortenUrl={this.shortenUrl}/>
-        <br/>
-        <LastShorts links={this.state.lastShorts}/>
-      </Container>
+      <div>
+        <Container>
+          <Jumbotron className="bg-white pl-0">
+            <h1>Create Click-Worthy Links</h1>
+            <p>
+              Build and protect your brand using powerful, recognizable short links.
+            </p>
+          </Jumbotron>
+        </Container>
+        <Container className="bg-dark pt-3">
+          <ShortenForm shortenUrl={this.shortenUrl}/>
+        </Container>
+        <Container className="bg-dark">
+          <LastShorts links={this.state.lastShorts}/>
+        </Container>
+      </div>
     );
   }
 }

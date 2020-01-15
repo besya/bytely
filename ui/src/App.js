@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Statistics from "./pages/Statistics";
 import Container from "react-bootstrap/Container";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 if(process.env.NODE_ENV === 'development'){
   window.API_URL = "http://localhost:8080/api/";
@@ -19,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Container>
+        <Container className="bg-dark">
           <Header />
         </Container>
         <div>
@@ -34,6 +35,9 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Container className="bg-dark text-white">
+          <Footer/>
+        </Container>
       </Router>
     </div>
   );

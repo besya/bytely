@@ -30,28 +30,25 @@ class Statistics extends React.Component {
 
   render() {
     return(
-      <Container>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item active>Statistics</Breadcrumb.Item>
-        </Breadcrumb>
-
-        <h1>Statistics</h1>
-
-        <br/>
-
-        <div>
-          <h2>Most popular links</h2>
-          <Popular links={this.state.links}/>
-        </div>
-
-        <br/>
-
-        <div>
-          <h2>By Countries</h2>
-          <Countries countries={this.state.countries}/>
-        </div>
-      </Container>
+      <div>
+        <Container className="p-0 mt-3">
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+            <Breadcrumb.Item active>Statistics</Breadcrumb.Item>
+          </Breadcrumb>
+        </Container>
+        <Container className="p-0">
+          <h1>Statistics</h1>
+          <div className="mt-4">
+            <h2>Most popular links</h2>
+            <Popular links={this.state.links}/>
+          </div>
+          <div className="mt-4">
+            <h2>By Countries</h2>
+            <Countries countries={this.state.countries}/>
+          </div>
+        </Container>
+      </div>
     );
   }
 }
