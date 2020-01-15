@@ -1,7 +1,6 @@
 require './config/boot'
 
-map '/resque' do
-  run Resque::Server
-end
+map('/resque')  { run Resque::Server }
+map('/api')     { run ApiController }
+map('/')        { run WebController }
 
-run Web

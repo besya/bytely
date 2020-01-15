@@ -15,8 +15,9 @@ class Countries extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {this.props.countries.map(country => (
-            <Country name={country.name}
+          {this.props.countries.map((country, index) => (
+            <Country key={index}
+                     name={country.name}
                      redirects={country.redirects_count}
                      unique_redirects={country.unique_redirects_count}
             />

@@ -16,9 +16,10 @@ class Popular extends React.Component {
         </tr>
         </thead>
         <tbody>
-        {this.props.links.map(link => (
-          <PopularItem originalUrl={link.url}
-                       shortUrl={link.token}
+        {this.props.links.map((link, index) => (
+          <PopularItem key={index}
+                       originalUrl={link.url}
+                       shortUrl={link.short}
                        redirects={link.redirects_count}
                        unique_redirects={link.unique_redirects_count}
           />

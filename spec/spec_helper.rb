@@ -12,7 +12,7 @@ module RSpecMixin
   include Rack::Test::Methods
 
   def app
-    Web
+    eval "Rack::Builder.new {( " + File.read(File.dirname(__FILE__) + '/../config.ru') + "\n )}"
   end
 end
 

@@ -36,6 +36,8 @@ GEM
       nio4r (~> 2.0)
     raabro (1.1.6)
     rack (2.0.8)
+    rack-contrib (2.1.0)
+      rack (~> 2.0)
     rack-protection (2.0.7)
       rack
     rack-test (1.1.0)
@@ -112,6 +114,7 @@ DEPENDENCIES
   maxmind-db
   pg
   puma
+  rack-contrib
   rack-test (~> 1.1.0)
   rake (= 13.0.1)
   resque

@@ -4,6 +4,7 @@ ruby '2.6.3'
 
 gem 'maxmind-db'
 gem 'puma'
+gem 'rack-contrib'
 gem 'rake', '13.0.1'
 gem 'resque'
 gem 'resque-pool'

@@ -33,7 +33,7 @@ RSpec.describe 'Web application' do
 
       link = JSON.parse last_response.body, symbolize_names: true
 
-      expect(link).to include(:url, :token, :redirects_count, :unique_redirects_count)
+      expect(link).to include(:url, :short, :redirects_count, :unique_redirects_count)
       expect(link[:url]).to eq(valid_params[:url])
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe 'Web application' do
       links = JSON.parse last_response.body, symbolize_names: true
 
       expect(links).to be_a_kind_of(Array)
-      expect(links.first).to include(:url, :token, :redirects_count, :unique_redirects_count)
+      expect(links.first).to include(:url, :short, :redirects_count, :unique_redirects_count)
     end
   end
 
