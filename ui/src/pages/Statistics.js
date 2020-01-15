@@ -8,13 +8,13 @@ import Axios from "axios";
 class Statistics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { countries: [], links: [] };
+    this.state = { countries: [], links: [], total_redirects: 0, unique_redirects: 0 };
   }
 
   getCountries = () => {
     Axios
       .get(window.API_URL + "countries")
-      .then(response => this.setState({countries: response.data}));
+      .then(response => this.updateCountriesState(response.data));
   };
 
   getPopular = () => {
@@ -22,6 +22,14 @@ class Statistics extends React.Component {
       .get(window.API_URL + "popular")
       .then(response => this.setState({links: response.data}));
   };
+
+  updateCountriesState(data) {
+    this.setState({
+      countries: data.items,
+      total_redirects: data.total_redirects,
+      unique_redirects: data.unique_redirects
+    });
+  }
 
   componentDidMount() {
     this.getPopular();
@@ -45,7 +53,10 @@ class Statistics extends React.Component {
           </div>
           <div className="mt-4">
             <h2>By Countries</h2>
-            <Countries countries={this.state.countries}/>
+            <Countries countries={this.state.countries}
+                       totalRedirects={this.state.total_redirects}
+                       uniqueRedirects={this.state.unique_redirects}
+            />
           </div>
         </Container>
       </div>

@@ -7,6 +7,7 @@ class Country extends React.Component {
         <td>{this.props.name}</td>
         <td>{this.props.redirects}</td>
         <td>{this.props.unique_redirects}</td>
+        <td>{this.props.percentage}%</td>
       </tr>
     );
   }

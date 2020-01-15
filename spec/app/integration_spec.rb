@@ -54,13 +54,14 @@ RSpec.describe 'Web application' do
   describe '/api/countries' do
     before(:example) { create(:country) }
 
-    it 'should return array of countries' do
+    it 'should return object with a total, unique, items as array of countries' do
       get '/api/countries'
 
       countries = JSON.parse last_response.body, symbolize_names: true
 
-      expect(countries).to be_a_kind_of(Array)
-      expect(countries.first).to include(:name, :redirects_count, :unique_redirects_count)
+      expect(countries).to be_a_kind_of(Hash)
+      expect(countries).to include(:items, :total_redirects, :unique_redirects)
+      expect(countries[:items].first).to include(:name, :redirects_count, :unique_redirects_count)
     end
   end
 

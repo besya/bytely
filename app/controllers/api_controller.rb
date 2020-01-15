@@ -36,7 +36,11 @@ class ApiController < ApplicationController
   end
 
   def countries
-    Country.order(redirects_count: :desc)
+    {
+      items: Country.order(redirects_count: :desc),
+      total_redirects: Country.sum(:redirects_count),
+      unique_redirects: Country.sum(:unique_redirects_count)
+    }
   end
 
   def popular_links

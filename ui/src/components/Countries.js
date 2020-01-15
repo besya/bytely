@@ -3,6 +3,16 @@ import Table from "react-bootstrap/Table";
 import Country from "./Country";
 
 class Countries extends React.Component {
+  countries = () => {
+    const total = this.props.uniqueRedirects;
+
+    return this.props.countries.map(country => {
+      const percentage = 100.0 * parseInt(country.unique_redirects_count) / parseInt(total);
+      country.percentage = Math.round(percentage);
+      return country;
+    });
+  };
+
   render() {
     return(
       <div>
@@ -12,14 +22,16 @@ class Countries extends React.Component {
             <th>Country</th>
             <th>Total uses</th>
             <th>Unique uses</th>
+            <th>Percent of all users</th>
           </tr>
           </thead>
           <tbody>
-          {this.props.countries.map((country, index) => (
+          {this.countries().map((country, index) => (
             <Country key={index}
                      name={country.name}
                      redirects={country.redirects_count}
                      unique_redirects={country.unique_redirects_count}
+                     percentage={country.percentage}
             />
           ))}
           </tbody>
