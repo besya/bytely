@@ -1,6 +1,6 @@
 class WebController < ApplicationController
   configure do
-    use Rack::Static, index: 'public/index.html'
+    use Rack::Static, index: 'public/index.html', urls: { '/statistics' => 'public/index.html' }
   end
 
   set root: File.dirname(__FILE__) + '/../..'

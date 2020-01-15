@@ -8,25 +8,28 @@ Link to the app on Heroku: [https://bytelyapp.herokuapp.com](https://bytelyapp.h
 Change database settings 
 `config/database.yml`
 
-Run setup script ```bundle exec rake db:setup```
+Run setup script ```bundle exec rake setup```
 
 Run a web app ```bundle exec puma -C config/puma.rb```
+
 Run workers ```bundle exec resque-pool```
+
 Run scheduler ```bundle exec rake environment resque:scheduler```
+
 
 #### Web App
 Run in separate windows
+
 ```bundle exec puma -C config/puma.rb```
+
 ```bundle exec rake ui:start```
 
-Web App will be Available at `http://localhost:3000/` by default
+
+Web App will be available at `http://localhost:3000/` by default
+Backend will be available at `http://localhost:8080/` by default
 
 #### Resque workers
-```bundle exec resque-pool```
 Web UI is available at `http://localhost:3000/resque/` be default
-
-#### Scheduler
-```bundle exec rake environment resque:scheduler```
 
 #### Console
 Useful console like Rails Console
@@ -55,14 +58,17 @@ Useful console like Rails Console
 ```rspec```
 
 
-### UI
-This command compiles the ui application to ./public folder
+#### UI
+This command produces static files into /public folder
+
 ```rake ui:build```
 
 Start UI in dev mode with hot reloading
+
 ```rake ui:start```
 
 Add a new package using yarn
+
 ```rake ui:add package-name```
 
 Run yarn install

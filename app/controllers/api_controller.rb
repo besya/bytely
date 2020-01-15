@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+  RESPONSE_CACHE_TTL_IN_SECONDS = 30
+
   configure do
     use Rack::PostBodyContentTypeParser
     register Sinatra::CrossOrigin
@@ -10,11 +12,11 @@ class ApiController < ApplicationController
   end
 
   get '/popular' do
-    respond_links Link.order(redirects_count: :desc).limit(10)
+    using_cache('popular') { serialize_links(popular_links) }
   end
 
   get '/countries' do
-    json Country.order(redirects_count: :desc)
+    using_cache('countries') { countries }
   end
 
   # Needed for CORS
@@ -28,6 +30,18 @@ class ApiController < ApplicationController
   end
 
   private
+
+  def using_cache(key, seconds: RESPONSE_CACHE_TTL_IN_SECONDS, &block)
+    $cache.get_or_set(key, seconds: seconds) { block.call.to_json }
+  end
+
+  def countries
+    Country.order(redirects_count: :desc)
+  end
+
+  def popular_links
+    Link.order(redirects_count: :desc).limit(10)
+  end
 
   def respond(link)
     link.errors.empty? ? respond_link(link) : respond_error(link)
@@ -52,7 +66,7 @@ class ApiController < ApplicationController
   def serialize_link(link)
     {
       url: link.url,
-      short: URI.join(base_url, link.token),
+      short: URI.join(base_url, link.token).to_s,
       redirects_count: link.redirects_count,
       unique_redirects_count: link.unique_redirects_count
     }

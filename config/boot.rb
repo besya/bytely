@@ -23,5 +23,6 @@ Dir[File.join(APP_DIR, '{lib,models,services,jobs,helpers}/*.rb')].sort.each { |
 require_relative 'initializers/redis'
 require_relative 'initializers/resque'
 require_relative 'initializers/geo'
+require_relative 'initializers/cache'
 
 Dir[File.join(APP_DIR, '{controllers}/*.rb')].sort.each { |file| require file }

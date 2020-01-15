@@ -36,7 +36,7 @@ end
 task c: :console
 
 task :setup do
-  tasks = %w[drop create migrate test:prepare seed]
+  tasks = %w[create migrate test:prepare seed]
   tasks.each { |task_name| Rake::Task["db:#{task_name}"].invoke }
 end
 
