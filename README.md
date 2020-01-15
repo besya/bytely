@@ -1,3 +1,25 @@
+### Retrospective
+
+- What went well?
+    - Tests with rspec helped to avoid regression
+    - Counter caches helped to denormalize a database
+    - React-bootstrap helps to make UI changes quickly
+    - Redis cache improves a response time for statistics endpoints
+    
+- What didn’t go well?
+    - Free heroku allows to have two workers only. And this is why scheduler doesn't work on demo
+    - For 10.000.000 requests per day needs more resources for Resque. It can be hot-fixed with additional servers for background jobs
+    - UI should have unit and integration tests as well
+    
+- If I had more time to work on this,
+    - Stress-testing
+    - Investigate a possibility to move analytics data to another storage
+    - Write tests for UI
+    - Make a documentation more detailed
+    - Choose pure Rack instead of Sinatra
+    - Choose pure css instead of Bootstrap
+    
+
 ### Deployment
 Automatic deploys to Heroku from `master` are enabled
 
