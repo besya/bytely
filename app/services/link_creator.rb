@@ -10,16 +10,17 @@ class LinkCreator < Service
     link = find_link
     return link if link
 
-    link = prepare_link
-    return link unless link.errors[:url].empty?
+    invalid_link = validate_link
+    return invalid_link if invalid_link
 
     Link.create url: @url, token: unique_token
   end
 
   private
 
-  def prepare_link
-    Link.new(url: @url).tap(&:valid?)
+  def validate_link
+    link = Link.new(url: @url).tap(&:valid?)
+    link.errors[:url].present? ? link : nil
   end
 
   def unique_token
