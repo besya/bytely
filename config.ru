@@ -1,6 +1,6 @@
 require './config/boot'
 
-map('/resque')  { run Resque::Server }
+map('/sidekiq')  { run Sidekiq::Web }
 map('/api')     { run ApiController }
 map('/')        { run WebController }
 

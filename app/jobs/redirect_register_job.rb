@@ -1,11 +1,7 @@
 class RedirectRegisterJob
-  extend Resque::Plugins::Retry
+  include Sidekiq::Worker
 
-  @queue = :redirects
-  @retry_limit = 3
-  @retry_delay = 10
-
-  def self.perform(ip, link_id)
+  def perform(ip, link_id)
     link = Link.find_by(id: link_id)
     return unless link
 
