@@ -13,9 +13,5 @@ before_fork do
 end
 
 on_worker_boot do
-  if defined?(Resque)
-    $redis = Redis.new(url: ENV['REDIS_URL'] || 'redis://127.0.0.1:6379')
-  end
-
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || :development)
 end

@@ -1,15 +1,22 @@
 ### Retrospective
 
+As it should be able to process 10M requests per day it means 115 request per second, 
+a current solution on free Heroku supports:
+    - 208 http requests per second
+    - 125 jobs per second
+
 - What went well?
     - Tests with rspec helped to avoid regression
     - Counter caches helped to denormalize a database
     - React-bootstrap helps to make UI changes quickly
     - Redis cache improves a response time for statistics endpoints
+    - Sidekiq works faster than Resque. 10_000 jobs was proceeded by Resque for 3m39s, by Sidekiq 0:30s
     
 - What didn’t go well?
-    - Free heroku allows to have two workers only. And this is why scheduler doesn't work on demo
-    - For 10.000.000 requests per day needs more resources for Resque. It can be hot-fixed with additional servers for background jobs
-    - UI should have unit and integration tests as well
+    - Using indexes on string fields like `url` can slow down inserts in future
+    - Using counter_caches requires an additional update queries
+    - UI should have a unit and integration tests as well
+    - free Heroku database has a limit for rows ~ 1M, impossible to make good stress-testing with an emulation of a one month working for example
     
 - If I had more time to work on this,
     - Stress-testing
@@ -34,9 +41,7 @@ Run setup script ```bundle exec rake setup```
 
 Run a web app ```bundle exec puma -C config/puma.rb```
 
-Run workers ```bundle exec resque-pool```
-
-Run scheduler ```bundle exec rake environment resque:scheduler```
+Run workers ```bundle exec sidekiq -r ./config/boot.rb -C ./config/sidekiq.yml ```
 
 
 #### Web App
@@ -48,10 +53,13 @@ Run in separate windows
 
 
 Web App will be available at `http://localhost:3000/` by default
+
 Backend will be available at `http://localhost:8080/` by default
 
-#### Resque workers
-Web UI is available at `http://localhost:3000/resque/` be default
+#### Background workers
+Run workers ```bundle exec sidekiq -r ./config/boot.rb -C ./config/sidekiq.yml ```
+
+Web UI is available at `http://localhost:8080/sidekiq/` be default
 
 #### Console
 Useful console like Rails Console
