@@ -9,9 +9,8 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'sinatra/cross_origin'
 require 'maxmind/db'
-require 'resque/server'
-require 'resque'
-require 'resque-retry'
+require 'sidekiq'
+require 'sidekiq/web'
 
 ENV['APP_ENV'] ||= ENV['RACK_ENV'] || 'development'
 
@@ -21,7 +20,7 @@ APP_DIR = File.join(ROOT_DIR, 'app')
 Dir[File.join(APP_DIR, '{lib,models,services,jobs,helpers}/*.rb')].sort.each { |file| require file }
 
 require_relative 'initializers/redis'
-require_relative 'initializers/resque'
+require_relative 'initializers/sidekiq'
 require_relative 'initializers/geo'
 require_relative 'initializers/cache'
 

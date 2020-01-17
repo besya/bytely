@@ -1,3 +1,2 @@
 web: bundle exec puma -C config/puma.rb
-worker: bundle exec resque-pool
-scheduler: bundle exec rake environment resque:scheduler
+worker: bundle exec sidekiq -r ./config/boot.rb -C ./config/sidekiq.yml

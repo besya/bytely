@@ -22,6 +22,6 @@ class WebController < ApplicationController
   end
 
   def register_redirect(link)
-    Resque.enqueue RedirectRegisterJob, request.ip, link.id
+    RedirectRegisterJob.perform_async(request.ip, link.id)
   end
 end
