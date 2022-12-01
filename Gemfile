@@ -7,9 +7,9 @@ gem 'puma'
 gem 'rack-contrib'
 gem 'rake', '13.0.1'
 gem 'sidekiq'
-gem 'sinatra', '2.0.7'
+gem 'sinatra', '3.0.4'
 gem 'sinatra-activerecord', '2.0.14'
-gem 'sinatra-contrib', '2.0.7'
+gem 'sinatra-contrib', '3.0.4'
 gem "sinatra-cross_origin", "~> 0.3.1"
 
 group :production, :development do
